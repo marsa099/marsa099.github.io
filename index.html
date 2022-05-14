@@ -21,7 +21,7 @@
 
     <div class="main">
         <span class="text dollarSign">$</span>
-        <span class="inputText"></span>
+        <span id="inputText" class="text inputText"></span>
         <span class="text blinkingCursor">_</span>
     </div>
 
@@ -34,6 +34,25 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
 </body>
+
+<script type="text/javascript">
+    const inputText = document.getElementById('inputText');
+    const text = "koderiet.dev";
+    const max = 3;
+    const min = 1;
+    
+    var rand = 1;
+
+    count = 0;
+    function enterText() {
+        var rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
+        inputText.textContent = text.substring(0, count++);
+        setTimeout(enterText, rand * 60);
+    }
+
+    enterText();
+
+</script>
 
 <style>
     html,
