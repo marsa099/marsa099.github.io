@@ -52,23 +52,15 @@
     }
 
     .blinkingCursor {
-        animation: blink 1.5s steps(2, start) infinite;
-        -webkit-animation: blink 1.5s steps(2, start) infinite;
+        animation: blink 1s steps(1) infinite;
 
     }
 
     @keyframes blink {
-        to {
-            visibility: hidden;
+       50% {
+          opacity: 0;
         }
-    }
-
-    @-webkit-keyframes blink {
-
-        to {
-            visibility: hidden;
-        }
-    }
+      }
 </style>
 
 </html>
