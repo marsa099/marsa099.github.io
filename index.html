@@ -20,9 +20,11 @@
         <![endif]-->
 
     <div class="main">
-        <span class="text dollarSign">$</span>
-        <span id="inputText" class="text inputText"></span>
-        <span class="text blinkingCursor">_</span>
+        <div class="terminal">
+            <span class="text dollarSign">$</span>
+            <span id="inputText" class="text inputText"></span>
+            <span class="text blinkingCursor">_</span>
+        </div>
     </div>
 
     <script src="" async defer></script>
@@ -36,7 +38,7 @@
 </body>
 
 <script type="text/javascript">
-    const inputText = document.getElementById('inputText');
+    const span = document.getElementById('inputText');
     const text = "koderiet.dev";
     const max = 3;
     const min = 1;
@@ -46,17 +48,28 @@
     var count = 0;
     function enterText() {
         let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
-        inputText.textContent = text.substring(0, count++);
+        let txt = document.createTextNode(text.substring(count, ++count));
+        span.appendChild(txt);
         let timerId = setTimeout(enterText, rand * 60);
         console.log("Hej");
 
-        if (count == text.length+1) {
+        if (count == text.length + 1) {
             clearTimeout(timerId);
             console.log("Cleared timeout");
+            newLine();
         }
     }
-
     enterText();
+
+    function newLine() {
+        const div = document.createElement('span');
+        div.appendChild(document.createElement('br'));
+        div.appendChild(document.createTextNode('$'));
+        span.appendChild(div);
+    }
+
+
+
 
 </script>
 
@@ -69,7 +82,15 @@
     .main {
         text-align: center;
         position: relative;
+        /* width: 600px; */
         top: 50%;
+        justify-content: center;
+        display: flex;
+    }
+
+    .terminal {
+        text-align: left;
+        width: fit-content;
     }
 
     .text {
