@@ -64,7 +64,11 @@
     function newLine() {
         const elem = document.createElement('span');
         elem.appendChild(document.createElement('br'));
-        elem.appendChild(document.createTextNode('$'));
+        var dollarSign = document.createElement('span');
+        var dollarText = document.createTextNode('$');
+        dollarSign.classList.add("text");
+        dollarSign.appendChild(dollarText);
+        elem.appendChild(dollarSign);
         span.appendChild(elem);
 
         //nextCommand();
@@ -74,7 +78,18 @@
     //     enterText(" git add .");
     // }
 
-    enterText("koderiet.dev");
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    console.log("Hej");
+    const stuff = async () => {
+        await sleep(1000);
+        enterText("koderiet.dev");
+    };
+    stuff();
+    console.log("Hej igen");
+
+
 
 
 </script>
@@ -83,6 +98,7 @@
     html,
     body {
         height: 100%;
+        background-color: #333333;
     }
 
     .main {
@@ -101,6 +117,8 @@
 
     .text {
         font-size: 15vh;
+        color: #ffffff;
+        font-family: 'SF Mono Regular';
     }
 
     .blinkingCursor {
@@ -112,6 +130,13 @@
         50% {
             opacity: 0;
         }
+    }
+
+    @font-face {
+        font-family: 'SF Mono Regular';
+        font-style: normal;
+        font-weight: normal;
+        src: local('SF Mono Regular'), url('SFMonoRegular.woff') format('woff');
     }
 </style>
 
