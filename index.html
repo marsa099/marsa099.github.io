@@ -75,15 +75,22 @@
     function printGitStatus()
     {
         span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp&nbsp(use \"git add \<file\>...\" to update what will be committed)<br>&nbsp&nbsp(use \"git restore \<file\>...\" to discard changes in working directory)<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color=\"red\">modified:&nbsp&nbspindex.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
+        newLine();
+    }
+
+    function printGitCommitResponse()
+    {
+        span.innerHTML += "[main b2734b9] Initial commit<br>&nbsp1 file changed, 4 insertions(+), 1 deletion(-)";
+        newLine();
     }
 
     const run = async () => {
         await typeCommand("koderiet.dev");
         await typeCommand("git status");
         printGitStatus();
-        newLine();
         await typeCommand("git add index.html");
         await typeCommand("git commit -m \"Initial commit\"");
+        printGitCommitResponse();
         await typeCommand("git push origin main");
         // await typeCommand("git commit -m \"Initial commit\"");
     };
@@ -103,7 +110,7 @@
         text-align: center;
         position: relative;
         /* width: 600px; */
-        top: 50%;
+        top: 20%;
         justify-content: center;
         display: flex;
     }
