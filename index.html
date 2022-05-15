@@ -74,7 +74,7 @@
 
     function printGitStatus()
     {
-        span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp&nbsp(use \"git add <file>...\" to update what will be committed)<br>&nbsp&nbsp(use \"git restore <file>...\" to discard changes in working directory)<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color=\"red\">modified:   index.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
+        span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp&nbsp(use \"git add \<file\>...\" to update what will be committed)<br>&nbsp&nbsp(use \"git restore \<file\>...\" to discard changes in working directory)<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color=\"red\">modified:&nbsp&nbspindex.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
     }
 
     const run = async () => {
@@ -82,6 +82,9 @@
         await typeCommand("git status");
         printGitStatus();
         newLine();
+        await typeCommand("git add index.html");
+        await typeCommand("git commit -m \"Initial commit\"");
+        await typeCommand("git push origin main");
         // await typeCommand("git commit -m \"Initial commit\"");
     };
 
