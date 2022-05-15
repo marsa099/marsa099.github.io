@@ -21,7 +21,7 @@
 
     <div class="main">
         <div class="terminal">
-            <span class="text dollarSign">$</span>
+            <span class="text dollarSign">$ </span>
             <span id="inputText" class="text inputText"></span>
             <span class="text blinkingCursor">_</span>
         </div>
@@ -46,51 +46,46 @@
     var rand = 1;
 
     var count = 0;
-    function enterText(textToType) {
-        let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
-        let txt = document.createTextNode(textToType.substring(count, ++count));
-        span.appendChild(txt);
-        let timerId = setTimeout(enterText.bind(this, textToType), rand * 60);
-        console.log("Hej");
+    
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-        if (count == textToType.length + 1) {
-            clearTimeout(timerId);
-            console.log("Cleared timeout");
-            count = 0;
-            newLine();
+    async function typeCommand(textToType) {
+        await sleep(rand * 300);
+        for (let i = 0; i < textToType.length; i++) {
+            let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
+            span.innerHTML += textToType[i];
+            await sleep(rand * 60);
         }
+        newLine();
     }
 
     function newLine() {
         const elem = document.createElement('span');
         elem.appendChild(document.createElement('br'));
         var dollarSign = document.createElement('span');
-        var dollarText = document.createTextNode('$');
+        var dollarText = document.createTextNode('$ ');
         dollarSign.classList.add("text");
         dollarSign.appendChild(dollarText);
         elem.appendChild(dollarSign);
         span.appendChild(elem);
-
-        //nextCommand();
     }
 
-    // function nextCommand(){
-    //     enterText(" git add .");
-    // }
-
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+    function printGitStatus()
+    {
+        span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp&nbsp(use \"git add <file>...\" to update what will be committed)<br>&nbsp&nbsp(use \"git restore <file>...\" to discard changes in working directory)<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color=\"red\">modified:   index.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
     }
-    console.log("Hej");
-    const stuff = async () => {
-        await sleep(1000);
-        enterText("koderiet.dev");
+
+    const run = async () => {
+        await typeCommand("koderiet.dev");
+        await typeCommand("git status");
+        printGitStatus();
+        newLine();
+        // await typeCommand("git commit -m \"Initial commit\"");
     };
-    stuff();
-    console.log("Hej igen");
 
-
-
+    run();
 
 </script>
 
@@ -112,11 +107,12 @@
 
     .terminal {
         text-align: left;
-        width: fit-content;
+        /* width: fit-content; */
+        width: 70%;
     }
 
     .text {
-        font-size: 15vh;
+        font-size: 5vh;
         color: #ffffff;
         font-family: 'SF Mono Regular';
     }
