@@ -23,7 +23,7 @@
         <div class="terminal mb-3">
             <span class="text dollarSign">$ </span>
             <span id="inputText" class="text inputText"></span>
-            <span class="text blinkingCursor">_</span>
+            <span id="blinkingCursor" class="text blinkingCursor">_</span>
         </div>
     </div>
 
@@ -42,8 +42,8 @@
     const text = "koderiet.dev";
     const max = 3;
     const min = 1;
-
     var rand = 1;
+    var delay = 20;
 
     var count = 0;
     
@@ -52,11 +52,11 @@
     }
 
     async function typeCommand(textToType) {
-        await sleep(rand * 300);
+        await sleep(rand * delay * 5);
         for (let i = 0; i < textToType.length; i++) {
             let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
             span.innerHTML += textToType[i];
-            await sleep(rand * 60);
+            await sleep(rand * delay);
         }
         newLine();
     }
@@ -70,6 +70,7 @@
         dollarSign.appendChild(dollarText);
         elem.appendChild(dollarSign);
         span.appendChild(elem);
+        document.getElementById('blinkingCursor').scrollIntoView();
     }
 
     function printGitStatus()
@@ -107,6 +108,11 @@
         printGitCommitResponse();
         await typeCommand("git push origin main");
         printGitPushResponse();
+        await typeCommand("git status");
+        await typeCommand("git status");
+        await typeCommand("git status");
+        await typeCommand("git status");
+        await typeCommand("git status");
         // await typeCommand("git commit -m \"Initial commit\"");
     };
 
@@ -122,10 +128,12 @@
     }
 
     .main {
+        /* border: 2px solid red; */
         text-align: center;
         position: relative;
         /* width: 600px; */
-        top: 5%;
+        top: 20%;
+        margin-bottom: 50%;
         justify-content: center;
         display: flex;
     }
@@ -133,11 +141,15 @@
     .terminal {
         text-align: left;
         /* width: fit-content; */
-        width: 70%;
+        min-width: 340px;
+        max-height: 400px;
+        /* border: 2px solid green; */
+        overflow-y: hidden;
+        overflow-wrap: break-word;
     }
 
     .text {
-        font-size: 5vh;
+        font-size: 16px;
         color: #ffffff;
         font-family: 'SF Mono Regular';
     }
