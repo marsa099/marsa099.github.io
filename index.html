@@ -117,23 +117,23 @@
     }
 
     const run = async () => {
-        await typeCommand("cd koderiet.dev");
+        // await typeCommand("cd koderiet.dev");
         await sleep(1000);
         await typeCommand("git status");
         await printGitStatus();
-        // await sleep(500);
+        await sleep(300);
         await typeCommand("git add index.html");
         await typeCommand("git commit -m \"Initial commit\"");
-        // await sleep(300);
+        await sleep(200);
         await printGitCommitResponse();
         await typeCommand("git push origin main");
-        // await sleep(300); 
+        await sleep(300); 
         await printGitPushResponse();
-        // await typeCommand("git status");
-        // await typeCommand("git status");
-        // await typeCommand("git status");
-        // await typeCommand("git status");
-        // await typeCommand("git status");
+        await sleep(500); 
+        await typeCommand("clear");
+        span.innerHTML = '';
+        await sleep(500); 
+        await typeCommand("cd koderiet.dev");
     };
 
     run();
