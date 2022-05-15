@@ -20,7 +20,7 @@
         <![endif]-->
 
     <div class="main">
-        <div class="terminal mb-3">
+        <div class="terminal mb-3 mx-3">
             <span class="text dollarSign">$ </span>
             <span id="inputText" class="text inputText"></span>
             <span id="blinkingCursor" class="text blinkingCursor">_</span>
@@ -39,7 +39,6 @@
 
 <script type="text/javascript">
     const span = document.getElementById('inputText');
-    const text = "koderiet.dev";
     const max = 3;
     const min = 1;
     var rand = 1;
@@ -99,6 +98,7 @@
 
     const run = async () => {
         await typeCommand("cd koderiet.dev");
+        await sleep(2000);
         await typeCommand("git status");
         printGitStatus();
         // await typeCommand("git add index.html");
