@@ -46,7 +46,7 @@
     var delay = 20;
 
     var count = 0;
-    
+
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -73,14 +73,12 @@
         document.getElementById('blinkingCursor').scrollIntoView();
     }
 
-    function printGitStatus()
-    {
+    function printGitStatus() {
         span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp&nbsp(use \"git add \<file\>...\" to update what will be committed)<br>&nbsp&nbsp(use \"git restore \<file\>...\" to discard changes in working directory)<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color=\"red\">modified:&nbsp&nbspindex.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
         newLine();
     }
 
-    function printGitCommitResponse()
-    {
+    function printGitCommitResponse() {
         span.innerHTML += "[main b2734b9] Initial commit<br>&nbsp1 file changed, 4 insertions(+), 1 deletion(-)";
         newLine();
     }
@@ -108,11 +106,6 @@
         printGitCommitResponse();
         await typeCommand("git push origin main");
         printGitPushResponse();
-        await typeCommand("git status");
-        await typeCommand("git status");
-        await typeCommand("git status");
-        await typeCommand("git status");
-        await typeCommand("git status");
         // await typeCommand("git commit -m \"Initial commit\"");
     };
 
@@ -154,6 +147,10 @@
         font-family: 'SF Mono Regular';
     }
 
+    .text--bold {
+        font-family: 'SF Mono Bold';
+    }
+
     .blinkingCursor {
         animation: blink 1s steps(1) infinite;
 
@@ -170,6 +167,13 @@
         font-style: normal;
         font-weight: normal;
         src: local('SF Mono Regular'), url('SFMonoRegular.woff') format('woff');
+    }
+
+    @font-face {
+        font-family: 'SF Mono Bold';
+        font-style: normal;
+        font-weight: normal;
+        src: local('SF Mono Bold'), url('SFMonoBold.woff') format('woff');
     }
 </style>
 
