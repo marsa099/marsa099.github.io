@@ -20,7 +20,7 @@
         <![endif]-->
 
     <div class="main">
-        <div class="terminal">
+        <div class="terminal mb-3">
             <span class="text dollarSign">$ </span>
             <span id="inputText" class="text inputText"></span>
             <span class="text blinkingCursor">_</span>
@@ -84,6 +84,20 @@
         newLine();
     }
 
+    function printGitPushResponse() {
+        span.innerHTML += "Enumerating objects: 35, done.<br>";
+        span.innerHTML += "Counting objects: 100% (35/35), done.<br>";
+        span.innerHTML += "Delta compression using up to 8 threads<br>";
+        span.innerHTML += "Compressing objects: 100% (34/34), done.<br>";
+        span.innerHTML += "Writing objects: 100% (34/34), 65.72 KiB | 16.43 MiB/s, done.<br>";
+        span.innerHTML += "Total 34 (delta 13), reused 0 (delta 0), pack-reused 0<br>";
+        span.innerHTML += "remote: Resolving deltas: 100% (13/13), done.<br>";
+        span.innerHTML += "To github.com:marsa099/koderiet.git<br>";
+        span.innerHTML += "aad575d..1458f72  main -> main<br>";
+        span.innerHTML += "'main' set up to track remote branch 'main' from 'origin'.<br>";
+        newLine();
+    }
+
     const run = async () => {
         await typeCommand("koderiet.dev");
         await typeCommand("git status");
@@ -92,6 +106,7 @@
         await typeCommand("git commit -m \"Initial commit\"");
         printGitCommitResponse();
         await typeCommand("git push origin main");
+        printGitPushResponse();
         // await typeCommand("git commit -m \"Initial commit\"");
     };
 
@@ -110,7 +125,7 @@
         text-align: center;
         position: relative;
         /* width: 600px; */
-        top: 20%;
+        top: 5%;
         justify-content: center;
         display: flex;
     }
