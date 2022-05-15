@@ -47,10 +47,12 @@
     var count = 0;
 
     function sleep(ms) {
+        console.log("sleep()");
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     async function typeCommand(textToType) {
+        console.log("typeCommand()");
         await sleep(rand * delay * 5);
         for (let i = 0; i < textToType.length; i++) {
             let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
@@ -60,52 +62,73 @@
         newLine();
     }
 
-    function newLine() {
+    async function newLine(addDollarSign = true) {
+        console.log("newLine()");
         const elem = document.createElement('span');
         elem.appendChild(document.createElement('br'));
-        var dollarSign = document.createElement('span');
-        var dollarText = document.createTextNode('$ ');
-        dollarSign.classList.add("text");
-        dollarSign.appendChild(dollarText);
-        elem.appendChild(dollarSign);
+        if (addDollarSign) {
+            var dollarSign = document.createElement('span');
+            var dollarText = document.createTextNode('$ ');
+            dollarSign.classList.add("text");
+            dollarSign.appendChild(dollarText);
+            elem.appendChild(dollarSign);
+        }
         span.appendChild(elem);
         document.getElementById('blinkingCursor').scrollIntoView();
     }
 
-    function printGitStatus() {
+    async function printGitStatus() {
+        console.log("printGitStatus()");
         span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp&nbsp(use \"git add \<file\>...\" to update what will be committed)<br>&nbsp&nbsp(use \"git restore \<file\>...\" to discard changes in working directory)<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color=\"red\">modified:&nbsp&nbspindex.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
         newLine();
     }
 
-    function printGitCommitResponse() {
+    async function printGitCommitResponse() {
+        console.log("printGitCommitResponse()");
         span.innerHTML += "[main b2734b9] Initial commit<br>&nbsp1 file changed, 4 insertions(+), 1 deletion(-)";
         newLine();
     }
 
-    function printGitPushResponse() {
-        span.innerHTML += "Enumerating objects: 35, done.<br>";
-        span.innerHTML += "Counting objects: 100% (35/35), done.<br>";
-        span.innerHTML += "Delta compression using up to 8 threads<br>";
-        span.innerHTML += "Compressing objects: 100% (34/34), done.<br>";
-        span.innerHTML += "Writing objects: 100% (34/34), 65.72 KiB | 16.43 MiB/s, done.<br>";
-        span.innerHTML += "Total 34 (delta 13), reused 0 (delta 0), pack-reused 0<br>";
-        span.innerHTML += "remote: Resolving deltas: 100% (13/13), done.<br>";
-        span.innerHTML += "To github.com:marsa099/koderiet.git<br>";
-        span.innerHTML += "aad575d..1458f72  main -> main<br>";
-        span.innerHTML += "'main' set up to track remote branch 'main' from 'origin'.<br>";
+    async function printGitPushResponse(lineDelay = 50) {
+        console.log("printGitPushResponse()");
+        var lines = [];
+        
+        lines.push("Enumerating objects: 35, done.");
+        lines.push("Counting objects: 100% (35/35), done.");
+        lines.push("Delta compression using up to 8 threads");
+        lines.push("Compressing objects: 100% (34/34), done.");
+        lines.push("Writing objects: 100% (34/34), 65.72 KiB | 16.43 MiB/s, done.");
+        lines.push("Total 34 (delta 13), reused 0 (delta 0), pack-reused 0");
+        lines.push("remote: Resolving deltas: 100% (13/13), done.");
+        lines.push("To github.com:marsa099/koderiet.git");
+        lines.push("aad575d..1458f72  main -> main");
+        lines.push("'main' set up to track remote branch 'main' from 'origin'.");
+        
+        
+        
+        for (let i = 0; i < lines.length; i++) {
+            let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
+            span.appendChild(document.createTextNode(lines[i]));
+            newLine(false);
+            await sleep(rand * lineDelay);
+        }
+
         newLine();
     }
 
     const run = async () => {
         await typeCommand("cd koderiet.dev");
-        await sleep(2000);
+        await sleep(1000);
         await typeCommand("git status");
-        printGitStatus();
-        // await typeCommand("git add index.html");
-        // await typeCommand("git commit -m \"Initial commit\"");
-        // printGitCommitResponse();
-        // await typeCommand("git push origin main");
-        // printGitPushResponse();
+        await printGitStatus();
+        // await sleep(500);
+        await typeCommand("git add index.html");
+        await typeCommand("git commit -m \"Initial commit\"");
+        // await sleep(300);
+        await printGitCommitResponse();
+        await typeCommand("git push origin main");
+        // await sleep(300); 
+        await printGitPushResponse();
         // await typeCommand("git status");
         // await typeCommand("git status");
         // await typeCommand("git status");
