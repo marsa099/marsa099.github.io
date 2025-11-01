@@ -81,11 +81,18 @@ async function finalGlowSequence() {
     const rand = Math.floor(Math.random() * (max - min + 1) + min);
     await sleep(rand * delay * 5);
 
+    // Create span for "cd " prefix
+    const cdSpan = document.createElement('span');
+    cdSpan.id = 'cd-prefix';
+    cdSpan.classList.add('text');
+
     for (let i = 0; i < prefix.length; i++) {
         const charDelay = Math.floor(Math.random() * (max - min + 1) + min);
-        span.innerHTML += prefix[i];
+        cdSpan.innerHTML += prefix[i];
         await sleep(charDelay * delay);
     }
+
+    span.appendChild(cdSpan);
 
     // Create special span for "koderiet.dev"
     const glowSpan = document.createElement('span');
@@ -104,12 +111,13 @@ async function finalGlowSequence() {
     // Wait 1 second after typing completes
     await sleep(1000);
 
-    // Hide everything except koderiet.dev
+    // Hide everything except cd prefix and koderiet.dev
     const dollarSign = document.querySelector('.dollarSign');
     if (dollarSign) dollarSign.style.display = 'none';
     if (blinkingCursor) blinkingCursor.style.display = 'none';
     span.innerHTML = ''; // Clear all previous content
-    span.appendChild(glowSpan); // Re-add only the glow span
+    span.appendChild(cdSpan); // Keep the cd prefix
+    span.appendChild(glowSpan); // Add the glow span
 
     // Wait another 1 second
     await sleep(1000);
