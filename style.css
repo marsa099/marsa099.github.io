@@ -66,6 +66,10 @@ body {
     font-family: "SF Mono Regular";
 }
 
+.dollarSign {
+    color: #00FF41;
+}
+
 .text--bold {
     font-family: "SF Mono Bold";
 }
