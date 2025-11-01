@@ -130,12 +130,9 @@ async function finalGlowSequence() {
     cdSpan.style.left = `${rect.left - parentRect.left}px`;
     cdSpan.style.top = `${rect.top - parentRect.top}px`;
 
-    // Trigger glow and scale animations
+    // Trigger glow and scale animations, and fade out cd-prefix
     glowSpan.classList.add('glow-active');
-
-    // Remove cd-prefix after font size transition completes (2 seconds)
-    await sleep(2000);
-    cdSpan.remove();
+    cdSpan.classList.add('fade-out');
 }
 
 const run = async () => {
@@ -153,6 +150,12 @@ const run = async () => {
     await sleep(500);
     await typeCommand("clear");
     span.innerHTML = '';
+
+    // Hide the original dollar sign to prevent double $$
+    const originalDollarSign = document.querySelector('.dollarSign');
+    if (originalDollarSign) {
+        originalDollarSign.style.display = 'none';
+    }
 
     // Center the content after clear
     const mainElement = document.querySelector('.main');
