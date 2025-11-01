@@ -29,6 +29,14 @@ body {
     display: flex;
 }
 
+.main.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 0;
+}
+
 .terminal {
     text-align: left;
     max-height: 400px;

@@ -133,6 +133,13 @@ const run = async () => {
     await sleep(500);
     await typeCommand("clear");
     span.innerHTML = '';
+
+    // Center the content after clear
+    const mainElement = document.querySelector('.main');
+    if (mainElement) {
+        mainElement.classList.add('centered');
+    }
+
     await sleep(500);
     await finalGlowSequence();
 };
