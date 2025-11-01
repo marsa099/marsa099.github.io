@@ -40,6 +40,7 @@ body {
     .terminal {
         width: 100%;
         font-size: 12px;
+        margin-left: 16px;
     }
 }
 
@@ -111,29 +112,23 @@ body {
 
 @keyframes neon-pink-pulse {
     0% {
-        text-shadow: 0 0 5px #fff,
-                     0 0 10px #fff,
-                     0 0 15px #fe019a,
-                     0 0 20px #fe019a,
-                     0 0 25px #fe019a;
+        text-shadow: 0 0 2px #fff,
+                     0 0 4px #fff,
+                     0 0 6px #fe019a,
+                     0 0 8px #fe019a;
     }
     50% {
-        text-shadow: 0 0 10px #fff,
-                     0 0 20px #fff,
-                     0 0 30px #fe019a,
-                     0 0 40px #fe019a,
-                     0 0 50px #fe019a,
-                     0 0 60px #fe019a,
-                     0 0 70px #fe019a;
+        text-shadow: 0 0 3px #fff,
+                     0 0 6px #fff,
+                     0 0 9px #fe019a,
+                     0 0 12px #fe019a,
+                     0 0 15px #fe019a;
     }
     100% {
-        text-shadow: 0 0 15px #fff,
-                     0 0 25px #fff,
-                     0 0 35px #fe019a,
-                     0 0 50px #fe019a,
-                     0 0 65px #fe019a,
-                     0 0 80px #fe019a,
-                     0 0 95px #fe019a,
-                     0 0 110px #fe019a;
+        text-shadow: 0 0 4px #fff,
+                     0 0 8px #fff,
+                     0 0 12px #fe019a,
+                     0 0 16px #fe019a,
+                     0 0 20px #fe019a;
     }
 }
