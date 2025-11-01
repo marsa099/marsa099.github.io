@@ -85,3 +85,55 @@ body {
     font-display: swap;
     src: local("SF Mono Bold"), url("./SFMonoBold.woff") format("woff");
 }
+
+/* Neon glow effect for koderiet.dev */
+#koderiet-glow {
+    display: inline-block;
+    transition: font-size 2s ease-out;
+    white-space: nowrap;
+}
+
+#koderiet-glow.glow-active {
+    animation: neon-pink-pulse 2s ease-in-out infinite alternate;
+}
+
+@media (max-width: 576px) {
+    #koderiet-glow.glow-active {
+        font-size: 10vw;
+    }
+}
+
+@media (min-width: 576px) {
+    #koderiet-glow.glow-active {
+        font-size: 5vw;
+    }
+}
+
+@keyframes neon-pink-pulse {
+    0% {
+        text-shadow: 0 0 5px #fff,
+                     0 0 10px #fff,
+                     0 0 15px #fe019a,
+                     0 0 20px #fe019a,
+                     0 0 25px #fe019a;
+    }
+    50% {
+        text-shadow: 0 0 10px #fff,
+                     0 0 20px #fff,
+                     0 0 30px #fe019a,
+                     0 0 40px #fe019a,
+                     0 0 50px #fe019a,
+                     0 0 60px #fe019a,
+                     0 0 70px #fe019a;
+    }
+    100% {
+        text-shadow: 0 0 15px #fff,
+                     0 0 25px #fff,
+                     0 0 35px #fe019a,
+                     0 0 50px #fe019a,
+                     0 0 65px #fe019a,
+                     0 0 80px #fe019a,
+                     0 0 95px #fe019a,
+                     0 0 110px #fe019a;
+    }
+}

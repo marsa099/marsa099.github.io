@@ -73,6 +73,51 @@ async function printGitPushResponse(lineDelay = 50) {
     newLine();
 }
 
+async function finalGlowSequence() {
+    const prefix = "cd ";
+    const glowText = "koderiet.dev";
+
+    // Type "cd " normally
+    const rand = Math.floor(Math.random() * (max - min + 1) + min);
+    await sleep(rand * delay * 5);
+
+    for (let i = 0; i < prefix.length; i++) {
+        const charDelay = Math.floor(Math.random() * (max - min + 1) + min);
+        span.innerHTML += prefix[i];
+        await sleep(charDelay * delay);
+    }
+
+    // Create special span for "koderiet.dev"
+    const glowSpan = document.createElement('span');
+    glowSpan.id = 'koderiet-glow';
+    glowSpan.classList.add('text');
+
+    // Type "koderiet.dev" into the special span
+    for (let i = 0; i < glowText.length; i++) {
+        const charDelay = Math.floor(Math.random() * (max - min + 1) + min);
+        glowSpan.innerHTML += glowText[i];
+        await sleep(charDelay * delay);
+    }
+
+    span.appendChild(glowSpan);
+
+    // Wait 1 second after typing completes
+    await sleep(1000);
+
+    // Hide everything except koderiet.dev
+    const dollarSign = document.querySelector('.dollarSign');
+    if (dollarSign) dollarSign.style.display = 'none';
+    if (blinkingCursor) blinkingCursor.style.display = 'none';
+    span.innerHTML = ''; // Clear all previous content
+    span.appendChild(glowSpan); // Re-add only the glow span
+
+    // Wait another 1 second
+    await sleep(1000);
+
+    // Trigger glow and scale animations
+    glowSpan.classList.add('glow-active');
+}
+
 const run = async () => {
     await sleep(1000);
     await typeCommand("git status");
@@ -89,7 +134,7 @@ const run = async () => {
     await typeCommand("clear");
     span.innerHTML = '';
     await sleep(500);
-    await typeCommand("cd koderiet.dev");
+    await finalGlowSequence();
 };
 
 run();
