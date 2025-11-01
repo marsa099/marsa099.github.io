@@ -27,7 +27,7 @@ async function newLine(addDollarSign = true) {
     if (addDollarSign) {
         const dollarSign = document.createElement('span');
         const dollarText = document.createTextNode('$ ');
-        dollarSign.classList.add("text");
+        dollarSign.classList.add("text", "dollarSign");
         dollarSign.appendChild(dollarText);
         elem.appendChild(dollarSign);
     }
