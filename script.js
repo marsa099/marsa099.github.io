@@ -74,21 +74,34 @@ async function printGitPushResponse(lineDelay = 50) {
 }
 
 async function finalGlowSequence() {
-    const prefix = "$ cd ";
+    const dollarSignText = "$ ";
+    const cdText = "cd ";
     const glowText = "koderiet.dev";
 
     // Type "$ cd " normally
     const rand = Math.floor(Math.random() * (max - min + 1) + min);
     await sleep(rand * delay * 5);
 
-    // Create span for "$ cd " prefix
+    // Create span for "$ " with Matrix green
+    const dollarSpan = document.createElement('span');
+    dollarSpan.classList.add('text', 'dollarSign');
+
+    for (let i = 0; i < dollarSignText.length; i++) {
+        const charDelay = Math.floor(Math.random() * (max - min + 1) + min);
+        dollarSpan.innerHTML += dollarSignText[i];
+        await sleep(charDelay * delay);
+    }
+
+    span.appendChild(dollarSpan);
+
+    // Create span for "cd " prefix
     const cdSpan = document.createElement('span');
     cdSpan.id = 'cd-prefix';
     cdSpan.classList.add('text');
 
-    for (let i = 0; i < prefix.length; i++) {
+    for (let i = 0; i < cdText.length; i++) {
         const charDelay = Math.floor(Math.random() * (max - min + 1) + min);
-        cdSpan.innerHTML += prefix[i];
+        cdSpan.innerHTML += cdText[i];
         await sleep(charDelay * delay);
     }
 
@@ -112,11 +125,10 @@ async function finalGlowSequence() {
     await sleep(1000);
 
     // Hide everything except "$ cd" prefix and koderiet.dev
-    const dollarSign = document.querySelector('.dollarSign');
-    if (dollarSign) dollarSign.style.display = 'none';
     if (blinkingCursor) blinkingCursor.style.visibility = 'hidden';
     span.innerHTML = ''; // Clear all previous content
-    span.appendChild(cdSpan); // Keep the "$ cd" prefix
+    span.appendChild(dollarSpan); // Keep the green $ sign
+    span.appendChild(cdSpan); // Keep the "cd " prefix
     span.appendChild(glowSpan); // Add the glow span
 
     // Wait a moment, then start gentle glow on koderiet.dev
