@@ -96,12 +96,12 @@ body {
     src: local("SF Mono Bold"), url("./SFMonoBold.woff") format("woff");
 }
 
-/* CD prefix that stays behind */
+/* CD prefix that fades out */
 #cd-prefix {
-    position: relative;
+    display: inline;
     z-index: 1;
     opacity: 1;
-    transition: opacity 1s ease-out;
+    transition: opacity 1.5s ease-out;
 }
 
 #cd-prefix.fade-out {
@@ -110,12 +110,10 @@ body {
 
 /* Neon glow effect for koderiet.dev */
 #koderiet-glow {
-    display: inline-block;
-    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out;
+    display: inline;
+    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out, top 2s ease-out;
     white-space: nowrap;
-    position: relative;
     z-index: 10;
-    transform-origin: left center;
 }
 
 #koderiet-glow.glow-initial {

@@ -119,42 +119,44 @@ async function finalGlowSequence() {
     span.appendChild(cdSpan); // Keep the "$ cd" prefix
     span.appendChild(glowSpan); // Add the glow span
 
-    // Wait a moment, then position both elements absolutely to prevent any shifting
+    // Wait a moment, then start the glow and fade animations
+    // Both elements stay in normal flow so "$ cd koderiet.dev" remains visible
     await sleep(500);
 
-    // Get current positions before making them absolute
-    const cdRect = cdSpan.getBoundingClientRect();
+    // Simultaneously start gentle glow on koderiet.dev and fade out "$ cd "
+    glowSpan.classList.add('glow-initial');
+    cdSpan.classList.add('fade-out');
+
+    // Wait for gentle glow to fade in and cd to fade out
+    await sleep(2500);
+
+    // Now position koderiet.dev absolutely so it can grow and move to center
+    // Get current position of glowSpan before making it absolute
     const glowRect = glowSpan.getBoundingClientRect();
     const parentRect = span.getBoundingClientRect();
+    const terminal = document.querySelector('.terminal');
 
-    // Position cd-prefix absolutely
-    cdSpan.style.position = 'absolute';
-    cdSpan.style.left = `${cdRect.left - parentRect.left}px`;
-    cdSpan.style.top = `${cdRect.top - parentRect.top}px`;
+    // Set a min-height on parent to prevent collapse when we position absolutely
+    span.style.minHeight = `${span.offsetHeight}px`;
 
-    // Position koderiet.dev absolutely at its current position
     glowSpan.style.position = 'absolute';
     glowSpan.style.left = `${glowRect.left - parentRect.left}px`;
     glowSpan.style.top = `${glowRect.top - parentRect.top}px`;
 
-    // Simultaneously start gentle glow on koderiet.dev and fade out "$ cd "
-    await sleep(200);
-    glowSpan.classList.add('glow-initial');
-    cdSpan.classList.add('fade-out');
-
-    // Wait for gentle glow to fade in and cd to fade out (1.5s transition time + 1s to appreciate it)
-    await sleep(2500);
+    // Small delay before triggering the growth animation
+    await sleep(100);
 
     // Trigger full glow and scale animations
     glowSpan.classList.remove('glow-initial');
     glowSpan.classList.add('glow-active');
 
     // Move the text towards center as it grows
-    // Calculate center position - we want it centered horizontally
-    await sleep(50); // Small delay to let the class be applied
-    const parentWidth = span.offsetWidth;
-    const glowWidth = glowSpan.offsetWidth;
-    const centerLeft = (parentWidth - glowWidth) / 2;
+    // Calculate center position - we want it centered horizontally in the terminal
+    await sleep(50);
+    const terminalWidth = terminal.offsetWidth;
+    const terminalRect = terminal.getBoundingClientRect();
+    // Center relative to terminal, not parent span
+    const centerLeft = (terminalWidth / 2) - (glowRect.width / 2) - (terminalRect.left - parentRect.left);
     glowSpan.style.left = `${centerLeft}px`;
 }
 
