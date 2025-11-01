@@ -117,7 +117,7 @@ body {
 /* Neon glow effect for koderiet.dev */
 #koderiet-glow {
     display: inline;
-    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out, top 2s ease-out;
+    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out, top 2s ease-out, transform 2s ease-out;
     white-space: nowrap;
     z-index: 10;
 }

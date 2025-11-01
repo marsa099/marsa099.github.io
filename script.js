@@ -138,13 +138,31 @@ async function finalGlowSequence() {
 
     // Let the glow be visible for a bit, THEN start fading out "$ cd "
     await sleep(1000);
+
+    // Get current position of koderiet.dev before converting to fixed positioning
+    const rect = glowSpan.getBoundingClientRect();
+    const currentLeft = rect.left;
+    const currentTop = rect.top;
+
+    // Convert to fixed positioning and set initial position
+    glowSpan.style.position = 'fixed';
+    glowSpan.style.left = currentLeft + 'px';
+    glowSpan.style.top = currentTop + 'px';
+
+    // Start fading out "$ cd "
     dollarSpan.classList.add('fade-out');
     cdSpan.classList.add('fade-out');
 
-    // Wait for cd to fade out completely (1.5s transition)
-    await sleep(1500);
+    // Small delay to ensure positioning is applied
+    await sleep(50);
 
-    // That's it for now - we'll add the growth/centering logic later
+    // Animate to center and grow
+    glowSpan.style.left = '50%';
+    glowSpan.style.transform = 'translateX(-50%)';
+    glowSpan.classList.add('glow-active'); // This increases font-size
+
+    // Wait for animations to complete
+    await sleep(2000);
 }
 
 const run = async () => {
