@@ -74,14 +74,14 @@ async function printGitPushResponse(lineDelay = 50) {
 }
 
 async function finalGlowSequence() {
-    const prefix = "cd ";
+    const prefix = "$ cd ";
     const glowText = "koderiet.dev";
 
-    // Type "cd " normally
+    // Type "$ cd " normally
     const rand = Math.floor(Math.random() * (max - min + 1) + min);
     await sleep(rand * delay * 5);
 
-    // Create span for "cd " prefix
+    // Create span for "$ cd " prefix
     const cdSpan = document.createElement('span');
     cdSpan.id = 'cd-prefix';
     cdSpan.classList.add('text');
@@ -111,19 +111,31 @@ async function finalGlowSequence() {
     // Wait 1 second after typing completes
     await sleep(1000);
 
-    // Hide everything except cd prefix and koderiet.dev
+    // Hide everything except "$ cd" prefix and koderiet.dev
     const dollarSign = document.querySelector('.dollarSign');
     if (dollarSign) dollarSign.style.display = 'none';
     if (blinkingCursor) blinkingCursor.style.display = 'none';
     span.innerHTML = ''; // Clear all previous content
-    span.appendChild(cdSpan); // Keep the cd prefix
+    span.appendChild(cdSpan); // Keep the "$ cd" prefix
     span.appendChild(glowSpan); // Add the glow span
 
     // Wait another 1 second
     await sleep(1000);
 
+    // Make cd-prefix absolutely positioned before glow starts
+    // Get current position before making it absolute
+    const rect = cdSpan.getBoundingClientRect();
+    const parentRect = span.getBoundingClientRect();
+    cdSpan.style.position = 'absolute';
+    cdSpan.style.left = `${rect.left - parentRect.left}px`;
+    cdSpan.style.top = `${rect.top - parentRect.top}px`;
+
     // Trigger glow and scale animations
     glowSpan.classList.add('glow-active');
+
+    // Remove cd-prefix after font size transition completes (2 seconds)
+    await sleep(2000);
+    cdSpan.remove();
 }
 
 const run = async () => {
