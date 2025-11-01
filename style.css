@@ -34,13 +34,17 @@ body {
     max-height: 400px;
     overflow-y: hidden;
     overflow-wrap: break-word;
+}
 
-    @media (max-width: 576px) {
+@media (max-width: 576px) {
+    .terminal {
         width: 100%;
         font-size: 12px;
     }
+}
 
-    @media (min-width: 576px) {
+@media (min-width: 576px) {
+    .terminal {
         max-width: 100%;
         width: 650px;
         font-size: 16px;
