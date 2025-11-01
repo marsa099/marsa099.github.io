@@ -114,15 +114,19 @@ async function finalGlowSequence() {
     // Hide everything except "$ cd" prefix and koderiet.dev
     const dollarSign = document.querySelector('.dollarSign');
     if (dollarSign) dollarSign.style.display = 'none';
-    if (blinkingCursor) blinkingCursor.style.display = 'none';
+    if (blinkingCursor) blinkingCursor.style.visibility = 'hidden';
     span.innerHTML = ''; // Clear all previous content
     span.appendChild(cdSpan); // Keep the "$ cd" prefix
     span.appendChild(glowSpan); // Add the glow span
 
-    // Wait another 1 second
-    await sleep(1000);
+    // Start gentle glow on koderiet.dev
+    await sleep(500);
+    glowSpan.classList.add('glow-initial');
 
-    // Make cd-prefix absolutely positioned before glow starts
+    // Wait for gentle glow to fade in (1.5s transition time + 1s to appreciate it)
+    await sleep(2500);
+
+    // Make cd-prefix absolutely positioned before full glow starts
     // Get current position before making it absolute
     const rect = cdSpan.getBoundingClientRect();
     const parentRect = span.getBoundingClientRect();
@@ -130,7 +134,8 @@ async function finalGlowSequence() {
     cdSpan.style.left = `${rect.left - parentRect.left}px`;
     cdSpan.style.top = `${rect.top - parentRect.top}px`;
 
-    // Trigger glow and scale animations, and fade out cd-prefix
+    // Trigger full glow and scale animations, and fade out cd-prefix
+    glowSpan.classList.remove('glow-initial');
     glowSpan.classList.add('glow-active');
     cdSpan.classList.add('fade-out');
 }
