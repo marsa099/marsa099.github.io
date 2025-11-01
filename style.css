@@ -42,6 +42,7 @@ body {
     max-height: 400px;
     overflow-y: hidden;
     overflow-wrap: break-word;
+    position: relative;
 }
 
 @media (max-width: 576px) {
