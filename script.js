@@ -144,29 +144,29 @@ async function finalGlowSequence() {
     glowSpan.style.left = `${glowRect.left - parentRect.left}px`;
     glowSpan.style.top = `${glowRect.top - parentRect.top}px`;
 
-    // Small delay to ensure position is set
-    await sleep(50);
-
-    // Now trigger the growth animation
-    // Remove the initial glow and add the active glow which includes font-size change
-    glowSpan.classList.remove('glow-initial');
-    glowSpan.classList.add('glow-active');
-
-    // Calculate the center position for the FINAL size and move it there
-    // The font will grow and the position will transition smoothly to center
-    await sleep(100);
-
-    // Get the terminal width to calculate center
+    // IMPORTANT: Calculate the final center position BEFORE triggering growth
+    // We need to estimate the final width based on the font-size change
     const terminalWidth = terminal.offsetWidth;
     const terminalLeft = terminal.getBoundingClientRect().left;
     const parentLeft = parentRect.left;
 
-    // After glow-active is applied, get the new computed size
-    const newWidth = glowSpan.offsetWidth;
+    // Calculate approximate final width (5vw or 10vw font-size)
+    // The text "koderiet.dev" is 12 characters
+    const isMobile = window.innerWidth < 576;
+    const finalFontSize = isMobile ? window.innerWidth * 0.1 : window.innerWidth * 0.05;
+    const estimatedFinalWidth = finalFontSize * 12 * 0.6; // approximate character width ratio
 
-    // Calculate center position relative to parent span
-    const centerLeft = (terminalWidth / 2) - (newWidth / 2) - (terminalLeft - parentLeft);
+    // Calculate center position for the final size
+    const centerLeft = (terminalWidth / 2) - (estimatedFinalWidth / 2) - (terminalLeft - parentLeft);
+
+    // Small delay to ensure position is set
+    await sleep(50);
+
+    // NOW set the final center position AND trigger growth at the same time
+    // This way both font-size and position transition together smoothly
     glowSpan.style.left = `${centerLeft}px`;
+    glowSpan.classList.remove('glow-initial');
+    glowSpan.classList.add('glow-active');
 }
 
 const run = async () => {
