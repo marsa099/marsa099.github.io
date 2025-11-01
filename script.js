@@ -119,25 +119,43 @@ async function finalGlowSequence() {
     span.appendChild(cdSpan); // Keep the "$ cd" prefix
     span.appendChild(glowSpan); // Add the glow span
 
-    // Start gentle glow on koderiet.dev
+    // Wait a moment, then position both elements absolutely to prevent any shifting
     await sleep(500);
-    glowSpan.classList.add('glow-initial');
 
-    // Wait for gentle glow to fade in (1.5s transition time + 1s to appreciate it)
+    // Get current positions before making them absolute
+    const cdRect = cdSpan.getBoundingClientRect();
+    const glowRect = glowSpan.getBoundingClientRect();
+    const parentRect = span.getBoundingClientRect();
+
+    // Position cd-prefix absolutely
+    cdSpan.style.position = 'absolute';
+    cdSpan.style.left = `${cdRect.left - parentRect.left}px`;
+    cdSpan.style.top = `${cdRect.top - parentRect.top}px`;
+
+    // Position koderiet.dev absolutely at its current position
+    glowSpan.style.position = 'absolute';
+    glowSpan.style.left = `${glowRect.left - parentRect.left}px`;
+    glowSpan.style.top = `${glowRect.top - parentRect.top}px`;
+
+    // Simultaneously start gentle glow on koderiet.dev and fade out "$ cd "
+    await sleep(200);
+    glowSpan.classList.add('glow-initial');
+    cdSpan.classList.add('fade-out');
+
+    // Wait for gentle glow to fade in and cd to fade out (1.5s transition time + 1s to appreciate it)
     await sleep(2500);
 
-    // Make cd-prefix absolutely positioned before full glow starts
-    // Get current position before making it absolute
-    const rect = cdSpan.getBoundingClientRect();
-    const parentRect = span.getBoundingClientRect();
-    cdSpan.style.position = 'absolute';
-    cdSpan.style.left = `${rect.left - parentRect.left}px`;
-    cdSpan.style.top = `${rect.top - parentRect.top}px`;
-
-    // Trigger full glow and scale animations, and fade out cd-prefix
+    // Trigger full glow and scale animations
     glowSpan.classList.remove('glow-initial');
     glowSpan.classList.add('glow-active');
-    cdSpan.classList.add('fade-out');
+
+    // Move the text towards center as it grows
+    // Calculate center position - we want it centered horizontally
+    await sleep(50); // Small delay to let the class be applied
+    const parentWidth = span.offsetWidth;
+    const glowWidth = glowSpan.offsetWidth;
+    const centerLeft = (parentWidth - glowWidth) / 2;
+    glowSpan.style.left = `${centerLeft}px`;
 }
 
 const run = async () => {
