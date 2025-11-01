@@ -95,11 +95,19 @@ body {
     src: local("SF Mono Bold"), url("./SFMonoBold.woff") format("woff");
 }
 
+/* CD prefix that stays behind */
+#cd-prefix {
+    position: relative;
+    z-index: 1;
+}
+
 /* Neon glow effect for koderiet.dev */
 #koderiet-glow {
     display: inline-block;
     transition: font-size 2s ease-out;
     white-space: nowrap;
+    position: relative;
+    z-index: 10;
 }
 
 #koderiet-glow.glow-active {
