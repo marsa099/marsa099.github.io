@@ -1,0 +1,95 @@
+const span = document.getElementById('inputText');
+const blinkingCursor = document.getElementById('blinkingCursor');
+const max = 3;
+const min = 1;
+const delay = 20;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function typeCommand(textToType) {
+    const rand = Math.floor(Math.random() * (max - min + 1) + min);
+    await sleep(rand * delay * 5);
+
+    for (let i = 0; i < textToType.length; i++) {
+        const charDelay = Math.floor(Math.random() * (max - min + 1) + min);
+        span.innerHTML += textToType[i];
+        await sleep(charDelay * delay);
+    }
+    newLine();
+}
+
+async function newLine(addDollarSign = true) {
+    const elem = document.createElement('span');
+    elem.appendChild(document.createElement('br'));
+
+    if (addDollarSign) {
+        const dollarSign = document.createElement('span');
+        const dollarText = document.createTextNode('$ ');
+        dollarSign.classList.add("text");
+        dollarSign.appendChild(dollarText);
+        elem.appendChild(dollarSign);
+    }
+
+    span.appendChild(elem);
+
+    if (blinkingCursor) {
+        blinkingCursor.scrollIntoView();
+    }
+}
+
+async function printGitStatus() {
+    span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp;&nbsp;(use \"git add &lt;file&gt;...\" to update what will be committed)<br>&nbsp;&nbsp;(use \"git restore &lt;file&gt;...\" to discard changes in working directory)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=\"red\">modified:&nbsp;&nbsp;index.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
+    newLine();
+}
+
+async function printGitCommitResponse() {
+    span.innerHTML += "[main b2734b9] Initial commit<br>&nbsp;1 file changed, 4 insertions(+), 1 deletion(-)";
+    newLine();
+}
+
+async function printGitPushResponse(lineDelay = 50) {
+    const lines = [
+        "Enumerating objects: 35, done.",
+        "Counting objects: 100% (35/35), done.",
+        "Delta compression using up to 8 threads",
+        "Compressing objects: 100% (34/34), done.",
+        "Writing objects: 100% (34/34), 65.72 KiB | 16.43 MiB/s, done.",
+        "Total 34 (delta 13), reused 0 (delta 0), pack-reused 0",
+        "remote: Resolving deltas: 100% (13/13), done.",
+        "To github.com:marsa099/koderiet.git",
+        "aad575d..1458f72  main -> main",
+        "'main' set up to track remote branch 'main' from 'origin'."
+    ];
+
+    for (let i = 0; i < lines.length; i++) {
+        const rand = Math.floor(Math.random() * (max - min + 1) + min);
+        span.appendChild(document.createTextNode(lines[i]));
+        newLine(false);
+        await sleep(rand * lineDelay);
+    }
+
+    newLine();
+}
+
+const run = async () => {
+    await sleep(1000);
+    await typeCommand("git status");
+    await printGitStatus();
+    await sleep(300);
+    await typeCommand("git add index.html");
+    await typeCommand("git commit -m \"Initial commit\"");
+    await sleep(200);
+    await printGitCommitResponse();
+    await typeCommand("git push origin main");
+    await sleep(300);
+    await printGitPushResponse();
+    await sleep(500);
+    await typeCommand("clear");
+    span.innerHTML = '';
+    await sleep(500);
+    await typeCommand("cd koderiet.dev");
+};
+
+run();

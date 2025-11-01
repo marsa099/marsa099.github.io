@@ -1,145 +1,47 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>koderiet.dev</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>koderiet.dev</title>
+    <meta name="description" content="A terminal-style developer portfolio showcasing git workflow. Interactive command-line animation demonstrating version control in action.">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://koderiet.dev/" />
     <meta property="og:title" content="koderiet.dev" />
-    <meta property="og:image" content="koderiet.png" />
-    <link rel="stylesheet" href="style.css">
+    <meta property="og:description" content="A terminal-style developer portfolio showcasing git workflow" />
+    <meta property="og:image" content="https://koderiet.dev/koderiet.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="koderiet.dev" />
+    <meta name="twitter:description" content="A terminal-style developer portfolio showcasing git workflow" />
+    <meta name="twitter:image" content="https://koderiet.dev/koderiet.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="koderiet.png">
+
+    <!-- Preload font for better performance -->
+    <link rel="preload" href="SFMonoRegular.woff" as="font" type="font/woff" crossorigin>
+
+    <link rel="stylesheet" href="style.scss">
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <!-- Screen reader description -->
+    <div class="sr-only" aria-live="polite">Terminal animation demonstrating git workflow commands</div>
 
-    <div class="main">
-        <div class="terminal mb-3 mx-3">
-            <span class="text dollarSign">$ </span>
+    <main class="main" role="main">
+        <div class="terminal mb-3 mx-3" role="log" aria-label="Terminal output">
+            <span class="text dollarSign" aria-hidden="true">$ </span>
             <span id="inputText" class="text inputText"></span>
-            <span id="blinkingCursor" class="text blinkingCursor">_</span>
+            <span id="blinkingCursor" class="text blinkingCursor" aria-hidden="true">_</span>
         </div>
-    </div>
+    </main>
 
-    <script src="" async defer></script>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+    <script src="script.js" defer></script>
 </body>
-
-<script type="text/javascript">
-    const span = document.getElementById('inputText');
-    const max = 3;
-    const min = 1;
-    var rand = 1;
-    var delay = 20;
-
-    var count = 0;
-
-    function sleep(ms) {
-        console.log("sleep()");
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    async function typeCommand(textToType) {
-        console.log("typeCommand()");
-        await sleep(rand * delay * 5);
-        for (let i = 0; i < textToType.length; i++) {
-            let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
-            span.innerHTML += textToType[i];
-            await sleep(rand * delay);
-        }
-        newLine();
-    }
-
-    async function newLine(addDollarSign = true) {
-        console.log("newLine()");
-        const elem = document.createElement('span');
-        elem.appendChild(document.createElement('br'));
-        if (addDollarSign) {
-            var dollarSign = document.createElement('span');
-            var dollarText = document.createTextNode('$ ');
-            dollarSign.classList.add("text");
-            dollarSign.appendChild(dollarText);
-            elem.appendChild(dollarSign);
-        }
-        span.appendChild(elem);
-        document.getElementById('blinkingCursor').scrollIntoView();
-    }
-
-    async function printGitStatus() {
-        console.log("printGitStatus()");
-        span.innerHTML += "On branch main<br>Changes not staged for commit:<br>&nbsp&nbsp(use \"git add \<file\>...\" to update what will be committed)<br>&nbsp&nbsp(use \"git restore \<file\>...\" to discard changes in working directory)<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color=\"red\">modified:&nbsp&nbspindex.html</font><br><br>no changes added to commit (use \"git add\" and/or \"git commit -a\")";
-        newLine();
-    }
-
-    async function printGitCommitResponse() {
-        console.log("printGitCommitResponse()");
-        span.innerHTML += "[main b2734b9] Initial commit<br>&nbsp1 file changed, 4 insertions(+), 1 deletion(-)";
-        newLine();
-    }
-
-    async function printGitPushResponse(lineDelay = 50) {
-        console.log("printGitPushResponse()");
-        var lines = [];
-        
-        lines.push("Enumerating objects: 35, done.");
-        lines.push("Counting objects: 100% (35/35), done.");
-        lines.push("Delta compression using up to 8 threads");
-        lines.push("Compressing objects: 100% (34/34), done.");
-        lines.push("Writing objects: 100% (34/34), 65.72 KiB | 16.43 MiB/s, done.");
-        lines.push("Total 34 (delta 13), reused 0 (delta 0), pack-reused 0");
-        lines.push("remote: Resolving deltas: 100% (13/13), done.");
-        lines.push("To github.com:marsa099/koderiet.git");
-        lines.push("aad575d..1458f72  main -> main");
-        lines.push("'main' set up to track remote branch 'main' from 'origin'.");
-        
-        
-        
-        for (let i = 0; i < lines.length; i++) {
-            let rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between min and max
-            span.appendChild(document.createTextNode(lines[i]));
-            newLine(false);
-            await sleep(rand * lineDelay);
-        }
-
-        newLine();
-    }
-
-    const run = async () => {
-        // await typeCommand("cd koderiet.dev");
-        await sleep(1000);
-        await typeCommand("git status");
-        await printGitStatus();
-        await sleep(300);
-        await typeCommand("git add index.html");
-        await typeCommand("git commit -m \"Initial commit\"");
-        await sleep(200);
-        await printGitCommitResponse();
-        await typeCommand("git push origin main");
-        await sleep(300); 
-        await printGitPushResponse();
-        await sleep(500); 
-        await typeCommand("clear");
-        span.innerHTML = '';
-        await sleep(500); 
-        await typeCommand("cd koderiet.dev");
-    };
-
-    run();
-
-</script>
 
 </html>
