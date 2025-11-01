@@ -100,7 +100,8 @@ body {
     src: local("SF Mono Bold"), url("./SFMonoBold.woff") format("woff");
 }
 
-/* CD prefix that fades out */
+/* Dollar sign and CD prefix that fade out */
+#dollar-prefix,
 #cd-prefix {
     display: inline;
     z-index: 1;
@@ -108,8 +109,9 @@ body {
     transition: opacity 1.5s ease-out;
 }
 
-#cd-prefix.fade-out {
-    opacity: 0;
+/* General fade-out class for any element */
+.fade-out {
+    opacity: 0 !important;
 }
 
 /* Neon glow effect for koderiet.dev */

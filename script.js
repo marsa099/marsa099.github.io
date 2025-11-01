@@ -84,6 +84,7 @@ async function finalGlowSequence() {
 
     // Create span for "$ " with Matrix green
     const dollarSpan = document.createElement('span');
+    dollarSpan.id = 'dollar-prefix';
     dollarSpan.classList.add('text', 'dollarSign');
 
     for (let i = 0; i < dollarSignText.length; i++) {
@@ -137,6 +138,7 @@ async function finalGlowSequence() {
 
     // Let the glow be visible for a bit, THEN start fading out "$ cd "
     await sleep(1000);
+    dollarSpan.classList.add('fade-out');
     cdSpan.classList.add('fade-out');
 
     // Wait for cd to fade out completely (1.5s transition)
