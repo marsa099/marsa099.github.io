@@ -130,43 +130,7 @@ async function finalGlowSequence() {
     // Wait for cd to fade out completely (1.5s transition)
     await sleep(1500);
 
-    // Now position koderiet.dev absolutely at its EXACT current position
-    // This is critical - we capture the position right before making it absolute
-    const glowRect = glowSpan.getBoundingClientRect();
-    const parentRect = span.getBoundingClientRect();
-    const terminal = document.querySelector('.terminal');
-
-    // Set a min-height on parent to prevent collapse when we position absolutely
-    span.style.minHeight = `${span.offsetHeight}px`;
-
-    // Position it absolutely at its current exact location
-    glowSpan.style.position = 'absolute';
-    glowSpan.style.left = `${glowRect.left - parentRect.left}px`;
-    glowSpan.style.top = `${glowRect.top - parentRect.top}px`;
-
-    // IMPORTANT: Calculate the final center position BEFORE triggering growth
-    // We need to estimate the final width based on the font-size change
-    const terminalWidth = terminal.offsetWidth;
-    const terminalLeft = terminal.getBoundingClientRect().left;
-    const parentLeft = parentRect.left;
-
-    // Calculate approximate final width (5vw or 10vw font-size)
-    // The text "koderiet.dev" is 12 characters
-    const isMobile = window.innerWidth < 576;
-    const finalFontSize = isMobile ? window.innerWidth * 0.1 : window.innerWidth * 0.05;
-    const estimatedFinalWidth = finalFontSize * 12 * 0.6; // approximate character width ratio
-
-    // Calculate center position for the final size
-    const centerLeft = (terminalWidth / 2) - (estimatedFinalWidth / 2) - (terminalLeft - parentLeft);
-
-    // Small delay to ensure position is set
-    await sleep(50);
-
-    // NOW set the final center position AND trigger growth at the same time
-    // This way both font-size and position transition together smoothly
-    glowSpan.style.left = `${centerLeft}px`;
-    glowSpan.classList.remove('glow-initial');
-    glowSpan.classList.add('glow-active');
+    // That's it for now - we'll add the growth/centering logic later
 }
 
 const run = async () => {
