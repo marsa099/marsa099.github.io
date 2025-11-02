@@ -171,9 +171,14 @@ const run = async () => {
 
     // Center the content after clear using Tailwind classes
     const mainElement = document.querySelector('.main');
+    const terminalElement = document.querySelector('.terminal');
     if (mainElement) {
         mainElement.classList.remove('pt-[20vh]', 'mb-[50vh]');
         mainElement.classList.add('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2');
+    }
+    // Remove margins from terminal for perfect centering on all screen sizes
+    if (terminalElement) {
+        terminalElement.classList.remove('mb-3', 'mx-3');
     }
 
     await sleep(500);
