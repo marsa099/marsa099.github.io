@@ -26,6 +26,9 @@
     <!-- Preload font for better performance -->
     <link rel="preload" href="SFMonoRegular.woff" as="font" type="font/woff" crossorigin>
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -33,8 +36,8 @@
     <!-- Screen reader description -->
     <div class="sr-only" aria-live="polite">Terminal animation demonstrating git workflow commands</div>
 
-    <main class="main" role="main">
-        <div class="terminal mb-3 mx-3" role="log" aria-label="Terminal output">
+    <main class="main pt-[20vh] mb-[50vh]" role="main">
+        <div class="terminal mb-3 mx-3 sm:mx-0" role="log" aria-label="Terminal output">
             <span class="text dollarSign" aria-hidden="true">$ </span>
             <span id="inputText" class="text inputText"></span>
             <span id="blinkingCursor" class="text blinkingCursor" aria-hidden="true">_</span>

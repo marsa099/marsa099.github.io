@@ -22,19 +22,8 @@ body {
 
 .main {
     text-align: center;
-    position: relative;
-    top: 20%;
-    margin-bottom: 50%;
     justify-content: center;
     display: flex;
-}
-
-.main.centered {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-bottom: 0;
 }
 
 .terminal {
@@ -49,7 +38,6 @@ body {
     .terminal {
         width: 100%;
         font-size: 12px;
-        margin-left: 16px;
     }
 }
 
