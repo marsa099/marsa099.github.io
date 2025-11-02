@@ -169,10 +169,11 @@ const run = async () => {
         originalDollarSign.style.display = 'none';
     }
 
-    // Center the content after clear
+    // Center the content after clear using Tailwind classes
     const mainElement = document.querySelector('.main');
     if (mainElement) {
-        mainElement.classList.add('centered');
+        mainElement.classList.remove('pt-[20vh]', 'mb-[50vh]');
+        mainElement.classList.add('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2');
     }
 
     await sleep(500);
