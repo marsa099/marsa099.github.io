@@ -104,10 +104,11 @@ body {
 
 /* Neon glow effect for koderiet.dev */
 #koderiet-glow {
-    display: inline;
-    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out, top 2s ease-out;
+    display: inline-block;
+    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out, top 2s ease-out, transform 2s ease-out;
     white-space: nowrap;
     z-index: 10;
+    transform-origin: center center;
 }
 
 #koderiet-glow.glow-initial {
@@ -119,6 +120,12 @@ body {
 
 #koderiet-glow.glow-active {
     animation: neon-pink-pulse 2s ease-in-out infinite alternate;
+}
+
+#koderiet-glow.scale-up {
+    position: relative;
+    left: -15%;
+    transform: scale(4);
 }
 
 @media (max-width: 576px) {
