@@ -136,10 +136,11 @@ async function finalGlowSequence() {
     await sleep(500);
     glowSpan.classList.add('glow-initial');
 
-    // Let the glow be visible for a bit, THEN start fading out "$ cd "
+    // Let the glow be visible for a bit, THEN start fading out "$ cd " and scaling up koderiet.dev
     await sleep(1000);
     dollarSpan.classList.add('fade-out');
     cdSpan.classList.add('fade-out');
+    glowSpan.classList.add('scale-up');
 
     // Wait for cd to fade out completely (1.5s transition)
     await sleep(1500);
