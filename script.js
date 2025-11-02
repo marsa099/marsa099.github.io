@@ -141,8 +141,12 @@ async function finalGlowSequence() {
     dollarSpan.classList.add('fade-out');
     cdSpan.classList.add('fade-out');
 
-    // Wait for cd to fade out completely (1.5s transition)
-    await sleep(1500);
+    // Wait for 20% of the fade (3s * 0.2 = 600ms), then start shifting koderiet.dev left
+    await sleep(600);
+    glowSpan.classList.add('shift-left');
+
+    // Wait for animations to complete (remaining 80% of fade = 2400ms)
+    await sleep(2400);
 
     // That's it for now - we'll add the growth/centering logic later
 }
