@@ -94,7 +94,7 @@ body {
     display: inline;
     z-index: 1;
     opacity: 1;
-    transition: opacity 1.5s ease-out;
+    transition: opacity 3s ease-out;
 }
 
 /* General fade-out class for any element */
@@ -105,9 +105,10 @@ body {
 /* Neon glow effect for koderiet.dev */
 #koderiet-glow {
     display: inline;
-    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out, top 2s ease-out;
+    transition: font-size 2s ease-out, text-shadow 1.5s ease-in, left 2s ease-out, top 2s ease-out, transform 2.4s ease-out;
     white-space: nowrap;
     z-index: 10;
+    transform: translateX(0);
 }
 
 #koderiet-glow.glow-initial {
@@ -119,6 +120,10 @@ body {
 
 #koderiet-glow.glow-active {
     animation: neon-pink-pulse 2s ease-in-out infinite alternate;
+}
+
+#koderiet-glow.shift-left {
+    transform: translateX(-2.5em);
 }
 
 @media (max-width: 576px) {
