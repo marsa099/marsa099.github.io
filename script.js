@@ -179,6 +179,7 @@ const run = async () => {
     // Remove margins from terminal for perfect centering on all screen sizes
     if (terminalElement) {
         terminalElement.classList.remove('mb-3', 'mx-3', 'sm:mx-0');
+        terminalElement.style.textAlign = 'center';
     }
 
     await sleep(500);
